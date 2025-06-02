@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Meme Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Meme Generator</h1>
+    <input type="file" id="imageInput" accept="image/*"><br><br>
+    <div class="controls">
+      <div>
+        <label>Top Text:</label>
+        <input type="text" id="topTextInput" value="Top Text">
+        <label>Font Size:</label>
+        <input type="number" id="topFontSize" value="32" min="10" max="100" style="width:60px;">
+        <label>Color:</label>
+        <input type="color" id="topFontColor" value="#ffffff">
+      </div>
+      <div>
+        <label>Bottom Text:</label>
+        <input type="text" id="bottomTextInput" value="Bottom Text">
+        <label>Font Size:</label>
+        <input type="number" id="bottomFontSize" value="32" min="10" max="100" style="width:60px;">
+        <label>Color:</label>
+        <input type="color" id="bottomFontColor" value="#ffffff">
+      </div>
+    </div>
+    <div id="memeArea">
+      <img id="memeImage" src="" alt="Your Meme">
+      <div id="topText" class="meme-text" draggable="true" contenteditable="true">Top Text</div>
+      <div id="bottomText" class="meme-text" draggable="true" contenteditable="true">Bottom Text</div>
+    </div>
+    <button id="generateBtn">Generate Meme</button>
+    <button id="downloadBtn" disabled>Download Meme</button>
+    <canvas id="memeCanvas" width="350" height="350" style="display:none;"></canvas>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
