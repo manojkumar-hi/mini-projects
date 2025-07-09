@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sample HTML Components Page</title>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <!-- Article with section -->
+        <article>
+            <section id="about">
+                <h2>About Us</h2>
+                <p>This is a sample paragraph explaining the purpose of this page.</p>
+                <p>Here is some <strong>bold text</strong>, <em>italic text</em>, and <u>underlined text</u>.</p>
+                <p>Special characters: &copy;, &reg;, &lt;, &gt;, &amp;</p>
+            </section>
+
+            <!-- Table -->
+            <section id="services">
+                <h2>Service Pricing</h2>
+                <table border="1">
+                    <caption>Our Services</caption>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Duration</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Web Design</td>
+                            <td>3 Months</td>
+                            <td>$300</td>
+                        </tr>
+                        <tr>
+                            <td>SEO</td>
+                            <td>2 Months</td>
+                            <td>$200</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Form -->
+            <section id="contact">
+                <h2>Contact Us</h2>
+                <form action="/submit" method="post">
+                    <fieldset>
+                        <legend>Personal Information</legend>
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name"><br><br>
+
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email"><br><br>
+
+                        <label for="gender">Gender:</label><br>
+                        <input type="radio" id="male" name="gender" value="male">
+                        <label for="male">Male</label>
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label><br><br>
+
+                        <label for="interests">Interests:</label><br>
+                        <input type="checkbox" id="coding" name="interest" value="coding">
+                        <label for="coding">Coding</label>
+                        <input type="checkbox" id="design" name="interest" value="design">
+                        <label for="design">Design</label><br><br>
+
+                        <label for="country">Country:</label><br>
+                        <select id="country" name="country">
+                            <option value="india">India</option>
+                            <option value="usa">USA</option>
+                            <option value="uk">UK</option>
+                        </select><br><br>
+
+                        <label for="message">Message:</label><br>
+                        <textarea id="message" name="message" rows="4" cols="30"></textarea><br><br>
+
+                        <button type="submit">Submit</button>
+                        <button type="reset">Reset</button>
+                    </fieldset>
+                </form>
+            </section>
+        </article>
+
+        <!-- Media -->
+        <section>
+            <h2>Gallery</h2>
+            <figure>
+                <img src="https://via.placeholder.com/150&quot; alt="Sample Image">
+                <figcaption>Placeholder Image</figcaption>
+            </figure>
+            <video width="320" height="240" controls>
+                <source src="sample.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video><br><br>
+            <audio controls>
+                <source src="sample.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </section>
+    </main>
+
+    <!-- Aside -->
+    <aside>
+        <h2>News</h2>
+        <p>Latest updates on our blog and events.</p>
+    </aside>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 MyWebsite. All rights reserved.</p>
+        <address>Contact us at: info@example.com</address>
+    </footer>
+
+</body>
+
+</html>

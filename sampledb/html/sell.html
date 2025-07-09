@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Sell Product</title></head>
+<body>
+  <h2>Sell Product</h2>
+  <form action="http://127.0.0.1:8000/sell" method="post">
+    Product Name: <input type="text" name="name" required><br><br>
+    Price: <input type="number" step="0.01" name="price" required><br><br>
+    Quantity: <input type="number" name="quantity" required><br><br>
+    Seller Email: <input type="email" name="seller_email" required><br><br>
+    <input type="submit" value="Sell">
+  </form>
+</body>
+</html>

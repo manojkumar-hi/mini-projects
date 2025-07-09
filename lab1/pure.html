@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="John Doe">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure HTML Elements Example</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>HTML Elements Showcase</h1>
+        <nav>
+            <a href="#text">Text</a>
+            <a href="#media">Media</a>
+            <a href="#form">Form</a>
+            <a href="#table">Table</a>
+            <a href="#extra">Extra</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Text Formatting</h2>
+            <p>This is a <b>bold</b>, <i>italic</i>, <u>underlined</u> paragraph with <strong>strong emphasis</strong>
+                and <em>emphasis</em>.</p>
+            <p>Here is <small>small</small>, <mark>highlighted</mark>, <del>deleted</del> and <ins>inserted</ins> text.
+            </p>
+            <p>Water is H<sub>2</sub>O and x<sup>2</sup> is x squared.</p>
+            <h1>Heading 1</h1>
+            <h2>Heading 2</h2>
+            <h3>Heading 3</h3>
+            <h4>Heading 4</h4>
+            <h5>Heading 5</h5>
+            <h6>Heading 6</h6>
+            <p>Line 1<br>Line 2</p>
+        </section>
+
+        <section>
+            <h2>Images and Media</h2>
+            <figure>
+                <img src="image.jpg" alt="Sample Image">
+                <figcaption>Figure 1: Sample image</figcaption>
+            </figure>
+
+            <audio controls>
+                <source src="audio.mp3" type="audio/mpeg">
+            </audio>
+
+            <video controls>
+                <source src="video.mp4" type="video/mp4">
+            </video>
+
+            <iframe src="https://example.com&quot; title="Example Site"></iframe>
+        </section>
+
+        <section>
+            <h2>Forms and Input</h2>
+            <form>
+                <fieldset>
+                    <legend>Contact Us</legend>
+
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name"><br><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email"><br><br>
+
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message"></textarea><br><br>
+
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select><br><br>
+
+                    <input type="checkbox" id="subscribe" name="subscribe">
+                    <label for="subscribe">Subscribe to newsletter</label><br><br>
+
+                    <button type="submit">Submit</button>
+                </fieldset>
+            </form>
+        </section>
+
+        <section>
+            <h2>Tables</h2>
+            <table>
+                <caption>User Data</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alice</td>
+                        <td>Admin</td>
+                    </tr>
+                    <tr>
+                        <td>Bob</td>
+                        <td>User</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">End of Table</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <section>
+            <h2>Other HTML Elements</h2>
+            <article>
+                <header>
+                    <h3>Quotes and Code</h3>
+                </header>
+
+                <blockquote cite="https://example.com"&gt;
+                    This is a block quote.
+                </blockquote>
+
+                <p>Inline quote: <q>HTML is fun!</q></p>
+
+                <p><code>print("Hello World")</code></p>
+
+                <pre>
+def hello():
+  print("Hello World")
+        </pre>
+
+                <p>Press <kbd>Ctrl</kbd> + <kbd>S</kbd> to save.</p>
+                <p>Output: <samp>File saved.</samp></p>
+                <p>Variable: <var>x</var> = 10</p>
+            </article>
+
+            <aside>
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><a href="#">HTML Reference</a></li>
+                    <li><a href="#">MDN Docs</a></li>
+                </ul>
+            </aside>
+
+            <p>Progress: <progress value="50" max="100"></progress></p>
+            <p>Meter: <meter value="0.7">70%</meter></p>
+
+            <canvas>Canvas not supported</canvas>
+
+            <svg width="100" height="100">
+                <circle cx="50" cy="50" r="40" stroke="black" fill="lightblue" />
+            </svg>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Pure HTML Page</p>
+    </footer>
+
+</body>
+
+</html>
