@@ -92,15 +92,15 @@ async def get_posts():
 
 @router.get("/{post_id}/comments", response_model=dict)
 async def get_comments(post_id: str):
-    try:
-        # Simple test - just return empty response first
-        return {
+    post_exists = await db.posts.count_documents({"post_id": post_id}) > 0
+    if not post_exists:
+        raise HTTPException(status_code=404, detail="Post not found")
+    comments= await db.comments.find({"post_id": post_id},{"_id":0}).sort([("created_at",1)]).to_list(length=None)
+    return {
             "status": "success",
-            "message": f"Testing endpoint for post_id: {post_id}",
-            "data": []
-        }
-    except Exception as e:
-        print(f"Error in get_comments: {e}")
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+            "message": "comments fetched successfully",
+            "data": comments
+                
+           
+        } 
+                                                                           

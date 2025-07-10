@@ -11,7 +11,7 @@ from utils import decode_jwt_token
 router = APIRouter()
 
 @router.post("/create", response_model=dict)
-async def create_comment(comment: Comment, Authorization: Optional[str] = Header(None)):
+async def create_user(comment: Comment, Authorization: Optional[str] = Header(None)):
     posts_exists = await db.posts.count_documents({"post_id": comment.post_id}) > 0
     if not posts_exists:
         raise HTTPException(status_code=404, detail="Post not found")
