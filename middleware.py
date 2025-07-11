@@ -18,7 +18,12 @@ class AuthMiddleware(BaseHTTPMiddleware):
     
     async def dispatch(self, request: Request, call_next):
         print(f"Middleware called for path: {request.url.path}")
-        
+
+        # Allow all OPTIONS requests (CORS preflight)
+        if request.method == "OPTIONS":
+            print("OPTIONS request detected, skipping auth.")
+            return await call_next(request)
+
         # Check if the route requires authentication
         if self.is_public_route(request.url.path):
             print(f"Public route detected: {request.url.path}")
