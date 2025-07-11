@@ -11,7 +11,7 @@ app = FastAPI(title="StudentHub API", version="1.0.0")
 # CORS middleware MUST come FIRST
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5174"],  # ✅ Only allow your Vite React dev server
+    allow_origins=["*"],  # Allow all origins (not recommended for production)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
