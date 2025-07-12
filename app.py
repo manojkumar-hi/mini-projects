@@ -11,7 +11,10 @@ app = FastAPI(title="StudentHub API", version="1.0.0")
 # CORS middleware MUST come FIRST
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins (not recommended for production)
+    allow_origins=[
+        "http://localhost:5173",       # Vite local dev
+        "https://mini-projects-elo0.netlify.app"  # Replace with your actual frontend deployment
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
