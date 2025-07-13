@@ -14,7 +14,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
             "/openapi.json",
             "/api/v1/users/signup",
             "/api/v1/users/login",
-             "/api/v1/posts" ,
+            "/api/v1/posts" ,
             "/api/v1/posts/" 
         ]
     
@@ -27,7 +27,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
 
         # Check if the route requires authentication
-        if self.is_public_route(request.url.path):
+        if self.is_public_route(request.url.path, request.method):
             print(f"Public route detected: {request.url.path}")
             # Public route, skip authentication
             response = await call_next(request)
@@ -68,6 +68,11 @@ class AuthMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
         return response
     
-    def is_public_route(self, path: str) -> bool:
+    def is_public_route(self, path: str, method: str = "GET") -> bool:
         """Check if the route is in the public routes list"""
-        return path in self.public_routes
+        if path in self.public_routes:
+            return True
+        # Allow GET requests to /api/v1/posts/{post_id}/comments
+        if method == "GET" and path.startswith("/api/v1/posts/") and path.endswith("/comments"):
+            return True
+        return False
