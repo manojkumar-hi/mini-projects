@@ -1,19 +1,21 @@
 from datetime import datetime
 from typing import Optional
 from uuid import uuid4
-
 from fastapi import APIRouter, HTTPException, Header, Path
-
+from pydantic import BaseModel
 from db import db
 from models.comment import Comment  # noqa
 from utils import decode_jwt_token
+
+class CommentRequest(BaseModel):
+    content: str
 
 router = APIRouter()
 
 @router.post("/posts/{post_id}/comments", response_model=dict)
 async def create_comment(
+    comment: CommentRequest,
     post_id: str = Path(..., description="The ID of the post to comment on"),
-    comment: Comment = None,
     Authorization: Optional[str] = Header(None)
 ):
     # Check if post exists
