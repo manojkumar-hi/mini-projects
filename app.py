@@ -19,13 +19,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 # AuthMiddleware comes AFTER CORS
 app.add_middleware(AuthMiddleware)
 
 # Include routers
 app.include_router(user_router, prefix="/api/v1/users", tags=["users"])
 app.include_router(post_router, prefix="/api/v1/posts", tags=["posts"])
-app.include_router(comment_router, prefix="/api/v1/comments", tags=["comments"])
+app.include_router(comment_router, prefix="/api/v1/posts/{post_id}/comments", tags=["comments"])
 
 @app.get("/")
 def read_root():
