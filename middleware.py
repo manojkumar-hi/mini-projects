@@ -1,4 +1,4 @@
-from fastapi import Request, HTTPException
+from fastapi import Request
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from utils import validate_jwt_token
@@ -17,7 +17,14 @@ class AuthMiddleware(BaseHTTPMiddleware):
             "/api/v1/posts" ,
             "/api/v1/posts/" 
         ]
-    
+
+    # Add this helper method inside the class
+    def _cors_json_response(self, content, status_code=401):
+        response = JSONResponse(content=content, status_code=status_code)
+        response.headers["Access-Control-Allow-Origin"] = "http://localhost:5173"
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        return response
+
     async def dispatch(self, request: Request, call_next):
         print(f"Middleware called for path: {request.url.path}")
 
@@ -41,11 +48,8 @@ class AuthMiddleware(BaseHTTPMiddleware):
         
         if not authorization:
             print("No authorization header found")
-            return JSONResponse(
-                status_code=401,
-                content={"detail": "Authorization header required"}
-            )
-        
+            return self._cors_json_response({"detail": "Authorization header required"})
+
         # Validate the token
         print(f"About to validate token: {authorization[:50]}..." if len(authorization) > 50 else f"About to validate token: {authorization}")
         
@@ -58,10 +62,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         
         if not token_valid:
             print("Token validation failed - returning 401")
-            return JSONResponse(
-                status_code=401,
-                content={"detail": "Invalid or expired token"}
-            )
+            return self._cors_json_response({"detail": "Invalid or expired token"})
         
         print("Token is valid, proceeding to route")
         # Token is valid, proceed with the request
