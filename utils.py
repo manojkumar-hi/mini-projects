@@ -23,6 +23,9 @@ def decode_jwt_token(token: str) -> dict:
         raise Exception("Invalid token")
 
 def validate_jwt_token(token: str) -> bool:
+    # Remove 'Bearer ' prefix if present
+    if token.startswith("Bearer "):
+        token = token.split(" ", 1)[1]
     try:
         jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return True
