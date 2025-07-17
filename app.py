@@ -26,7 +26,7 @@ app.add_middleware(AuthMiddleware)
 # Include routers
 app.include_router(user_router, prefix="/api/v1/users", tags=["users"])
 app.include_router(post_router, prefix="/api/v1/posts", tags=["posts"])
-app.include_router(comment_router, prefix="/api/v1", tags=["comments"])
+app.include_router(comment_router, prefix="/api/v1/comments", tags=["comments"])
 
 @app.get("/")
 def read_root():
