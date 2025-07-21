@@ -6,13 +6,12 @@ from fastapi import APIRouter, HTTPException, Header, Path
 from pydantic import BaseModel
 
 from db import db
-from models.comment import Comment   # noqa
 from utils import decode_jwt_token
+
+router = APIRouter()
 
 class CommentRequest(BaseModel):
     content: str
-
-router = APIRouter()
 
 @router.post("/posts/{post_id}/comments", response_model=dict)
 async def create_comment(
@@ -25,8 +24,11 @@ async def create_comment(
     if not posts_exists:
         raise HTTPException(status_code=404, detail="Post not found")
     
-    # Decode user from JWT
-    user_data = decode_jwt_token(Authorization)
+    # Safely handle Authorization header
+    if not Authorization or not Authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Invalid or missing token")
+    token = Authorization.split(" ", 1)[1]
+    user_data = decode_jwt_token(token)
     if not user_data:
         raise HTTPException(status_code=401, detail="Invalid or missing token")
 
