@@ -1,67 +1,45 @@
 from datetime import datetime
-from typing import Optional
+import token
+from fastapi import APIRouter, HTTPException,Request,Header
+from models.comment import Comment
+from db import db
+import jwt
+from bson import ObjectId
+from utils import decode_jwt_token
 from uuid import uuid4
 
-from fastapi import APIRouter, HTTPException, Header, Path
-from pydantic import BaseModel
 
-from db import db
-from utils import decode_jwt_token
 
 router = APIRouter()
 
-class CommentRequest(BaseModel):
-    content: str
-
-@router.post("/posts/{post_id}/comments", response_model=dict)
-async def create_comment(
-    comment: CommentRequest,
-    post_id: str = Path(..., description="The ID of the post to comment on"),
-    Authorization: Optional[str] = Header(None)
-):
-    # Check if post exists
-    posts_exists = await db.posts.count_documents({"post_id": post_id}) > 0
-    if not posts_exists:
+@router.post("/create", response_model=dict)
+async def create_user(comment: Comment,Authorization: str = Header(None)):
+    post_exists=await db.posts.count_documents({"post_id": comment.post_id})>0
+    if not post_exists:
         raise HTTPException(status_code=404, detail="Post not found")
     
-    # Safely handle Authorization header
-    if not Authorization or not Authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Invalid or missing token")
-    token = Authorization.split(" ", 1)[1]
-    user_data = decode_jwt_token(token)
-    if not user_data:
-        raise HTTPException(status_code=401, detail="Invalid or missing token")
+    user_data = decode_jwt_token(Authorization)
 
-    # Prepare comment data
-    comment_data = comment.dict()
-    comment_data["comment_id"] = str(uuid4())
-    comment_data["created_at"] = datetime.now()
-    comment_data["created_by"] = user_data.get("email")
-    comment_data["post_id"] = post_id  # Ensure post_id is set from path
-
-    # Insert comment
+    
+    comment_data=comment.dict()
+    comment_data['comment_id']= str(uuid4())
+    comment_data['created_at'] =  datetime.utcnow()
+    comment_data['created_by'] = user_data.get('email')
+    
     result = await db.comments.insert_one(comment_data)
     if not result.acknowledged:
         raise HTTPException(
             status_code=500,
             detail="Failed to create comment. Please try again later."
         )
-
-    # Prepare response
-    created_at_str = comment_data["created_at"].isoformat() if hasattr(comment_data["created_at"], 'isoformat') else str(comment_data["created_at"])
-    return {
-        "status": "success",
-        "message": "Comment created successfully",
-        "data": {
-            "id": str(result.inserted_id),
-            "comment_id": comment_data["comment_id"],
-            "post_id": post_id,
-            "content": comment.content,
-            "created_by": comment_data["created_by"],
-            "created_at": created_at_str
+    return{
+            "status": "success",
+            "message": "Comment created successfully",
+            "data": {
+                "id": str(result.inserted_id),
+                "post_id": comment.post_id,
+                "content": comment.content,
+                "created_by": comment_data['created_by'],
+                "created_at": comment_data['created_at']
+            }
         }
-    }
-
-@router.get("/test", response_model=dict)
-async def test_endpoint():
-    return {"status": "success", "message": "Comment router test endpoint works!"}
