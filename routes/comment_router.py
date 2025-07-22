@@ -12,9 +12,13 @@ from uuid import uuid4
 
 router = APIRouter()
 
-@router.post("/create", response_model=dict)
-async def create_user(comment: Comment,Authorization: str = Header(None)):
-    post_exists=await db.posts.count_documents({"post_id": comment.post_id})>0
+@router.post("/posts/{post_id}/comments", response_model=dict)
+async def create_comment(
+    post_id: str,
+    comment: Comment,
+    Authorization: str = Header(None)
+):
+    post_exists = await db.posts.count_documents({"post_id": post_id}) > 0
     if not post_exists:
         raise HTTPException(status_code=404, detail="Post not found")
     
