@@ -12,8 +12,8 @@ app = FastAPI(title="StudentHub API", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",       # Vite local dev
-        "https://mini-projects-elo0.netlify.app"  # Replace with your actual frontend deployment
+        "http://localhost:5173",
+        "https://mini-projects-elo0.netlify.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -26,11 +26,12 @@ app.add_middleware(AuthMiddleware)
 # Include routers
 app.include_router(user_router, prefix="/api/v1/users", tags=["users"])
 app.include_router(post_router, prefix="/api/v1/posts", tags=["posts"])
-app.include_router(comment_router, prefix="/api/v1", tags=["comments"])
+app.include_router(comment_router, prefix="/api/v1/comments", tags=["comments"])
+
 @app.get("/")
 def read_root():
     return {"message": "Welcome to StudentHub API"}
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("app:app", host="127.0.0.1", port=8001, reload=True)
